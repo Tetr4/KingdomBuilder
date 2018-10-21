@@ -18,12 +18,13 @@ fun FloatingActionButton.setVisible(visible: Boolean) {
 
 @BindingAdapter("items")
 fun ViewPager.setItems(items: List<Stats>?) {
+    if (items == null) return
     var adapter = this.adapter
     if (adapter !is StatsAdapter) {
         adapter = StatsAdapter((context as FragmentActivity).supportFragmentManager)
         this.adapter = adapter
     }
-    adapter.items = items ?: emptyList()
+    adapter.items = items
 }
 
 @BindingAdapter("page", "pageAttrChanged", requireAll = false)

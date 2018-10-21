@@ -22,16 +22,18 @@ class MainActivity : AppCompatActivity() {
         binding.vm = vm
         binding.setLifecycleOwner(this)
 
-        vm.isLastSelected.observe(this) { invalidateOptionsMenu() }
         setSupportActionBar(toolbar)
         tabs.setupWithViewPager(pager)
+        vm.isLastSelected.observe(this) { invalidateOptionsMenu() }
+        vm.isFirstSelected.observe(this) { invalidateOptionsMenu() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         if (vm.isLastSelected.value == true && vm.stats.value?.size != 1) {
             menuInflater.inflate(R.menu.menu, menu)
+            return true
         }
-        return true
+        return false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
