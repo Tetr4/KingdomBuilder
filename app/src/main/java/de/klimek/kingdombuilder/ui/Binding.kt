@@ -7,13 +7,13 @@ import androidx.databinding.InverseBindingListener
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import de.klimek.kingdombuilder.R
 import de.klimek.kingdombuilder.model.Stats
 
 
 @BindingAdapter("month")
 fun Toolbar.setMonth(month: Int) {
-    // TODO string resource
-    title = "Month $month"
+    title = resources.getString(R.string.month, month)
 }
 
 @BindingAdapter("visible")

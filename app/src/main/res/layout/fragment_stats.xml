@@ -16,7 +16,7 @@
         <LinearLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingStart="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="@{vm.enabled}"
-                    android:hint="Economy"
+                    android:hint="@string/economy"
                     android:inputType="numberSigned"
                     android:maxLength="3"
                     android:text="@={vm.economy}" />
@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="@{vm.enabled}"
-                    android:hint="Loyalty"
+                    android:hint="@string/loyalty"
                     android:inputType="numberSigned"
                     android:maxLength="3"
                     android:text="@={vm.loyalty}" />
@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="@{vm.enabled}"
-                    android:hint="Stability"
+                    android:hint="@string/stability"
                     android:inputType="numberSigned"
                     android:maxLength="3"
                     android:text="@={vm.stability}" />
@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="@{vm.enabled}"
-                    android:hint="Unrest"
+                    android:hint="@string/unrest"
                     android:inputType="numberSigned"
                     android:maxLength="3"
                     android:text="@={vm.unrest}" />
@@ -98,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="@{vm.enabled}"
-                    android:hint="Consumption"
+                    android:hint="@string/consumption"
                     android:inputType="numberSigned"
                     android:maxLength="3"
                     android:text="@={vm.consumption}" />
@@ -114,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="@{vm.enabled}"
-                    android:hint="Treasury"
+                    android:hint="@string/treasury"
                     android:inputType="numberSigned"
                     android:maxLength="3"
                     android:text="@={vm.treasury}" />
@@ -130,7 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="@{vm.enabled}"
-                    android:hint="Size"
+                    android:hint="@string/size"
                     android:inputType="numberSigned"
                     android:maxLength="3"
                     android:text="@={vm.size}" />

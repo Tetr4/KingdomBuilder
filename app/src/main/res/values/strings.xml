@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Kingdom Builder</string>
+    <string name="economy">Economy</string>
+    <string name="loyalty">Loyalty</string>
+    <string name="stability">Stability</string>
+    <string name="unrest">Unrest</string>
+    <string name="consumption">Consumption</string>
+    <string name="treasury">Treasury</string>
+    <string name="size">Size</string>
+    <string name="month">Month %d</string>
 </resources>

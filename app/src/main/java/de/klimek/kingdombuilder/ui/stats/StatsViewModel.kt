@@ -42,7 +42,7 @@ class StatsViewModel(
 
     private fun saveAfterDelay(data: MutableLiveData<String>) {
         data.distinct()
-            .debounce(100)
+            .debounce(500)
             .observe { save() }
     }
 
