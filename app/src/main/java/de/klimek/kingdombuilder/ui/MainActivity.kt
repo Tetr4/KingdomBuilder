@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         binding.setLifecycleOwner(this)
 
         vm.isLastSelected.observe(this) { invalidateOptionsMenu() }
-
         setSupportActionBar(toolbar)
+        tabs.setupWithViewPager(pager)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

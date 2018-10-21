@@ -1,20 +1,15 @@
 package de.klimek.kingdombuilder.ui
 
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import androidx.databinding.adapters.ListenerUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.klimek.kingdombuilder.R
 import de.klimek.kingdombuilder.model.Stats
 
-
-@BindingAdapter("month")
-fun Toolbar.setMonth(month: Int) {
-    title = resources.getString(R.string.month, month)
-}
 
 @BindingAdapter("visible")
 fun FloatingActionButton.setVisible(visible: Boolean) {
@@ -29,20 +24,19 @@ fun ViewPager.setItems(items: List<Stats>?) {
         this.adapter = adapter
     }
     adapter.items = items ?: emptyList()
-
 }
 
 @BindingAdapter("page", "pageAttrChanged", requireAll = false)
 fun ViewPager.setPage(page: Int, pageAttrChanged: InverseBindingListener?) {
     setCurrentItem(page, true)
-    // TODO remove old listener: ListenerUtil.trackListener(this, pageChanged)
-    addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-        override fun onPageScrollStateChanged(state: Int) = Unit
-        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
+    val newListener = object : ViewPager.SimpleOnPageChangeListener() {
         override fun onPageSelected(position: Int) {
             pageAttrChanged?.onChange()
         }
-    })
+    }
+    val oldListener = ListenerUtil.trackListener(this, newListener, R.id.page_listener)
+    oldListener?.let { removeOnPageChangeListener(it) }
+    addOnPageChangeListener(newListener)
 }
 
 @InverseBindingAdapter(attribute = "page")

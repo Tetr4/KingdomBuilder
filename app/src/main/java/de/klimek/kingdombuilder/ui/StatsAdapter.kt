@@ -14,7 +14,6 @@ class StatsAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
             notifyDataSetChanged()
         }
 
-
     override fun getItemPosition(item: Any) = if (item is StatsFragment && item.month < items.count()) {
         item.month
     } else {
@@ -23,4 +22,8 @@ class StatsAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int) = StatsFragment.newInstance(position)
     override fun getCount() = items.size
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return "Monat ${position + 1}"
+    }
 }
