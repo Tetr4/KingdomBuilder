@@ -21,7 +21,8 @@ fun ViewPager.setItems(items: List<Stats>?) {
     if (items == null) return
     var adapter = this.adapter
     if (adapter !is StatsAdapter) {
-        adapter = StatsAdapter((context as FragmentActivity).supportFragmentManager)
+        val fragmentManager = (context as FragmentActivity).supportFragmentManager
+        adapter = StatsAdapter(context, fragmentManager)
         this.adapter = adapter
     }
     adapter.items = items
