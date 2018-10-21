@@ -3,6 +3,7 @@ package de.klimek.kingdombuilder.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.shopify.livedataktx.observe
@@ -10,6 +11,7 @@ import de.klimek.kingdombuilder.R
 import de.klimek.kingdombuilder.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,9 +40,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_delete -> vm.delete()
+            R.id.action_delete -> showDeleteDialog()
             else -> return false
         }
         return true
+    }
+
+    private fun showDeleteDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.discard)
+            .setPositiveButton(android.R.string.yes) { _, _ -> vm.delete() }
+            .setNegativeButton(android.R.string.cancel, null).show()
     }
 }
