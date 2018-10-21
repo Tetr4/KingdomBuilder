@@ -10,20 +10,12 @@ import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.launch
 
 class MainViewModel(private val statsDao: StatsDao) : ViewModel() {
-    val stats = statsDao.getAll()
-        .nonNull()
-        .map { if (it.isEmpty()) listOf(Stats()) else it }
-        .distinct()
+    val stats = statsDao.getAll().nonNull().distinct()
     val selectedStatsIndex = mutableLiveDataOf(0)
     val isLastSelected = selectedStatsIndex.combineWith(stats) { index, stats -> index == stats?.lastIndex }.distinct()
     val isFirstSelected = selectedStatsIndex.map { it == 0 }.distinct()
 
     init {
-        loadData()
-
-    }
-
-    private fun loadData() {
         stats
             .map { it.size }
             .distinct()
