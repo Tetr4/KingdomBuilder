@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -27,7 +28,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/economy_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/economy_text"
@@ -45,7 +47,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/loyalty_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/loyalty_text"
@@ -63,7 +66,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/stability_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/stability_text"
@@ -81,7 +85,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/unrest_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/unrest_text"
@@ -99,7 +104,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/consumption_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/consumption_text"
@@ -117,7 +123,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/treasury_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/treasury_text"
@@ -135,7 +142,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/size_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/size_text"
