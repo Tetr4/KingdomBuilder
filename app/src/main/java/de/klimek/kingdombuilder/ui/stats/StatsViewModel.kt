@@ -7,9 +7,9 @@ import de.klimek.kingdombuilder.model.Stats
 import de.klimek.kingdombuilder.service.StatsDao
 import de.klimek.kingdombuilder.util.mutableLiveDataOf
 import de.klimek.kingdombuilder.util.observeOnce
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class StatsViewModel(
     private val month: Int,
