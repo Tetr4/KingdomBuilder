@@ -53,7 +53,7 @@ class StatsViewModel(
                 combined.value = value
             }
         }
-        combined.debounce(100).observe { save() }
+        combined.observe { save() }
     }
 
 

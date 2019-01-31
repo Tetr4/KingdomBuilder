@@ -11,12 +11,15 @@ import de.klimek.kingdombuilder.ui.stats.StatsFragment
 class StatsAdapter(private val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     var items = emptyList<Stats>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
+        set(newItems) {
+            val oldItems = field
+            field = newItems
+            if (oldItems.size != newItems.size) {
+                notifyDataSetChanged()
+            }
         }
 
-    override fun getItemPosition(item: Any) = if (item is StatsFragment && item.month < items.count()) {
+    override fun getItemPosition(item: Any) = if (item is StatsFragment && item.month < items.size) {
         item.month
     } else {
         PagerAdapter.POSITION_NONE
