@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="@dimen/fab_margin"
-            android:onClick="@{() -> vm.save()}"
+            android:onClick="@{() -> vm.newMonth()}"
             android:tint="@android:color/white"
             app:srcCompat="@drawable/ic_check"
             app:visible="@{vm.lastSelected}" />

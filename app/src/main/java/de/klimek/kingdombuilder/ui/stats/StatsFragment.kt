@@ -10,7 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class StatsFragment : Fragment() {
-
+    
     val month by lazy { arguments!!.getInt(ARG_MONTH) }
     val vm: StatsViewModel by viewModel { parametersOf(month) }
 
@@ -20,7 +20,7 @@ class StatsFragment : Fragment() {
     ): View? {
         val binding = FragmentStatsBinding.inflate(inflater, container, false)
         binding.vm = vm
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         return binding.root
     }
 

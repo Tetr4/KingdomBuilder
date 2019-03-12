@@ -56,8 +56,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'com.shopify:livedata-ktx:2.0.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha02"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0-alpha02"
 
     // dependency injection
     def koin_version = "1.0.1"
@@ -71,8 +71,8 @@ dependencies {
 
     // test
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.2-alpha01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
+    androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
     // testImplementation "androidx.room:room-testing:$room_version"
 }
 

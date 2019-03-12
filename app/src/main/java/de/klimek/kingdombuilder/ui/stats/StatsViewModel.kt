@@ -1,10 +1,10 @@
 package de.klimek.kingdombuilder.ui.stats
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.shopify.livedataktx.*
 import de.klimek.kingdombuilder.model.Stats
 import de.klimek.kingdombuilder.service.StatsDao
+import de.klimek.kingdombuilder.util.combineWith
+import de.klimek.kingdombuilder.util.distinct
 import de.klimek.kingdombuilder.util.mutableLiveDataOf
 import de.klimek.kingdombuilder.util.observeOnce
 import kotlinx.coroutines.Dispatchers
@@ -15,23 +15,27 @@ class StatsViewModel(
     private val month: Int,
     private val statsDao: StatsDao
 ) : ViewModel() {
-    val stats = statsDao.getByMonth(month)
-    val isEnabled = stats.combineWith(statsDao.getLast()) { current, last -> current == last }
 
-    var economy = mutableLiveDataOf("")
-    var loyalty = mutableLiveDataOf("")
-    var stability = mutableLiveDataOf("")
-    var unrest = mutableLiveDataOf("")
-    var consumption = mutableLiveDataOf("")
-    var treasury = mutableLiveDataOf("")
-    var size = mutableLiveDataOf("")
+    val stats = statsDao.getByMonth(month)
+    val editable = stats.combineWith(statsDao.getLast()) { current, last -> current.month == last.month }.distinct()
+
+    val economy = mutableLiveDataOf("")
+    val loyalty = mutableLiveDataOf("")
+    val stability = mutableLiveDataOf("")
+    val unrest = mutableLiveDataOf("")
+    val consumption = mutableLiveDataOf("")
+    val treasury = mutableLiveDataOf("")
+    val size = mutableLiveDataOf("")
 
     init {
-        loadData()
+        stats.observeOnce {
+            loadData(it)
+            enableAutoSave()
+        }
     }
 
-    private fun loadData() {
-        stats.nonNull().observeOnce {
+    private fun loadData(stats: Stats) {
+        stats.let {
             economy.value = it.economy.toString()
             loyalty.value = it.loyalty.toString()
             stability.value = it.stability.toString()
@@ -39,21 +43,14 @@ class StatsViewModel(
             consumption.value = it.consumption.toString()
             treasury.value = it.treasury.toString()
             size.value = it.size.toString()
-
-            enableAutoSave()
         }
     }
 
-
     private fun enableAutoSave() {
         val fields = setOf(economy, loyalty, stability, unrest, consumption, treasury, size)
-        val combined = MediatorLiveData<String>()
-        fields.map { it.distinct() }.forEach { field ->
-            combined.addSource(field) { value ->
-                combined.value = value
-            }
-        }
-        combined.observe { save() }
+        fields
+            .map { it.distinct() }
+            .forEach { it.observeForever { save() } }
     }
 
 
