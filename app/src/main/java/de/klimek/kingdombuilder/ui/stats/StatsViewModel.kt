@@ -26,6 +26,7 @@ class StatsViewModel(
     val consumption = mutableLiveDataOf("")
     val treasury = mutableLiveDataOf("")
     val size = mutableLiveDataOf("")
+    val income = mutableLiveDataOf("")
 
     init {
         stats.observeOnce {
@@ -43,11 +44,12 @@ class StatsViewModel(
             consumption.value = it.consumption.toString()
             treasury.value = it.treasury.toString()
             size.value = it.size.toString()
+            income.value = it.income.toString()
         }
     }
 
     private fun enableAutoSave() {
-        val fields = setOf(economy, loyalty, stability, unrest, consumption, treasury, size)
+        val fields = setOf(economy, loyalty, stability, unrest, consumption, treasury, size, income)
         fields
             .map { it.distinct() }
             .forEach { it.observeForever { save() } }
@@ -63,7 +65,8 @@ class StatsViewModel(
             unrest = unrest.value?.toIntOrNull() ?: 0,
             consumption = consumption.value?.toIntOrNull() ?: 0,
             treasury = treasury.value?.toIntOrNull() ?: 0,
-            size = size.value?.toIntOrNull() ?: 0
+            size = size.value?.toIntOrNull() ?: 0,
+            income = income.value?.toIntOrNull() ?: 0
         )
         GlobalScope.launch(Dispatchers.IO) {
             statsDao.save(stats)

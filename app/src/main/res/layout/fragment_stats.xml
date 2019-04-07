@@ -158,6 +158,25 @@
                     android:text="@={vm.size}" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/income_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/income_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="@{vm.editable}"
+                    android:focusable="@{vm.editable}"
+                    android:focusableInTouchMode="@{vm.editable}"
+                    android:hint="@string/income"
+                    android:inputType="numberSigned"
+                    android:maxLength="3"
+                    android:text="@={vm.income}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
     </ScrollView>
 </layout>

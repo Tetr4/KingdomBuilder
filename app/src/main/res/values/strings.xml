@@ -7,6 +7,7 @@
     <string name="consumption">Consumption</string>
     <string name="treasury">Treasury</string>
     <string name="size">Size</string>
+    <string name="income">Income</string>
     <string name="month">Month %d</string>
     <string name="discard">Discard item?</string>
 </resources>

@@ -13,6 +13,7 @@ data class Stats(
     val unrest: Int = 0,
     val consumption: Int = 0,
     val treasury: Int = 0,
-    val size: Int = 0
+    val size: Int = 0,
+    val income: Int = 0
     // TODO magic items?
 )
