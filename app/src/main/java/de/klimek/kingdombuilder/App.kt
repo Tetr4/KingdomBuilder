@@ -6,9 +6,10 @@ import de.klimek.kingdombuilder.service.AppDatabase
 import de.klimek.kingdombuilder.service.StatsDao
 import de.klimek.kingdombuilder.ui.MainViewModel
 import de.klimek.kingdombuilder.ui.stats.StatsViewModel
-import org.koin.android.ext.android.startKoin
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 private fun initializeDatabase(statsDao: StatsDao) {
     statsDao.save(Stats())
@@ -25,6 +26,9 @@ private val module = module {
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        startKoin(this, listOf(module))
+        startKoin {
+            androidContext(this@App)
+            modules(module)
+        }
     }
 }
