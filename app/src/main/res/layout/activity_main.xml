@@ -25,11 +25,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_weight="1"
-                android:background="?attr/colorPrimary"
-                android:theme="@style/ToolBarStyle"
-                app:title="@string/app_name">
+                android:layout_height="?attr/actionBarSize">
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -37,7 +33,6 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/ToolBarStyle"
                 app:tabGravity="fill"
                 app:tabMode="scrollable" />
 
@@ -58,7 +53,6 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="@dimen/fab_margin"
             android:onClick="@{() -> vm.newMonth()}"
-            android:tint="@android:color/white"
             app:srcCompat="@drawable/ic_check"
             app:visible="@{vm.lastSelected}" />
 
