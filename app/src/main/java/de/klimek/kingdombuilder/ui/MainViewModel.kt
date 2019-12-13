@@ -10,7 +10,6 @@ import de.klimek.kingdombuilder.util.combineWith
 import de.klimek.kingdombuilder.util.distinct
 import de.klimek.kingdombuilder.util.map
 import de.klimek.kingdombuilder.util.mutableLiveDataOf
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -21,33 +20,29 @@ class MainViewModel(
     val stats = statsDao.getAll()
     val statsSize = stats.map { it.size }.distinct()
     val selectedStatsIndex = mutableLiveDataOf(0)
-    val isLastSelected =
-        selectedStatsIndex.combineWith(stats) { index, stats -> index == stats.lastIndex }
-            .distinct()
-    val isFirstSelected = selectedStatsIndex.map { it == 0 }.distinct()
+    val isLastSelected = selectedStatsIndex
+        .combineWith(stats) { index, stats -> index == stats.lastIndex }
+        .distinct()
+    val isFirstSelected = selectedStatsIndex
+        .map { it == 0 }
+        .distinct()
 
-    fun newMonth() {
+    fun newMonth() = viewModelScope.launch {
         val last = stats.value?.lastOrNull()
         val new = last?.let { it.copy(month = it.month + 1) } ?: Stats()
-        viewModelScope.launch(Dispatchers.IO) {
-            statsDao.save(new)
-        }
+        statsDao.save(new)
     }
 
-    fun deleteMonth() {
+    fun deleteMonth() = viewModelScope.launch {
         val last = stats.value?.lastOrNull()
-        if (last != null) {
-            viewModelScope.launch(Dispatchers.IO) {
-                statsDao.delete(last)
-            }
-        }
+        last?.let { statsDao.delete(it) }
     }
 
     fun createBackup(uri: Uri) {
-
+        // TODO
     }
 
     fun restoreBackup(uri: Uri) {
-
+        // TODO
     }
 }

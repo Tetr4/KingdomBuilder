@@ -1,14 +1,13 @@
 package de.klimek.kingdombuilder.ui.stats
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import de.klimek.kingdombuilder.model.Stats
 import de.klimek.kingdombuilder.service.StatsDao
 import de.klimek.kingdombuilder.util.combineWith
 import de.klimek.kingdombuilder.util.distinct
 import de.klimek.kingdombuilder.util.mutableLiveDataOf
 import de.klimek.kingdombuilder.util.observeOnce
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class StatsViewModel(
@@ -17,7 +16,9 @@ class StatsViewModel(
 ) : ViewModel() {
 
     val stats = statsDao.getByMonth(month)
-    val editable = stats.combineWith(statsDao.getLast()) { current, last -> current.month == last.month }.distinct()
+    val editable =
+        stats.combineWith(statsDao.getLast()) { current, last -> current.month == last.month }
+            .distinct()
 
     val economy = mutableLiveDataOf("")
     val loyalty = mutableLiveDataOf("")
@@ -56,7 +57,7 @@ class StatsViewModel(
     }
 
 
-    private fun save() {
+    private fun save() = viewModelScope.launch {
         val stats = Stats(
             month = month,
             economy = economy.value?.toIntOrNull() ?: 0,
@@ -68,9 +69,7 @@ class StatsViewModel(
             size = size.value?.toIntOrNull() ?: 0,
             income = income.value?.toIntOrNull() ?: 0
         )
-        GlobalScope.launch(Dispatchers.IO) {
-            statsDao.save(stats)
-        }
+        statsDao.save(stats)
     }
 }
 

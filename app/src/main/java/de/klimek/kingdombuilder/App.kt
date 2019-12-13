@@ -7,12 +7,14 @@ import de.klimek.kingdombuilder.service.FileStorage
 import de.klimek.kingdombuilder.service.StatsDao
 import de.klimek.kingdombuilder.ui.MainViewModel
 import de.klimek.kingdombuilder.ui.stats.StatsViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
-private fun initializeDatabase(statsDao: StatsDao) {
+private fun initializeDatabase(statsDao: StatsDao) = GlobalScope.launch {
     statsDao.save(Stats())
 }
 

@@ -13,13 +13,13 @@ interface StatsDao {
     fun getByMonth(month: Int): LiveData<Stats>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(stats: Stats)
+    suspend fun save(stats: Stats)
 
     @Delete
-    fun delete(stats: Stats)
+    suspend fun delete(stats: Stats)
 
     @Query("DELETE FROM Stats")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Query("SELECT * FROM Stats ORDER BY month DESC LIMIT 1;")
     fun getLast(): LiveData<Stats>

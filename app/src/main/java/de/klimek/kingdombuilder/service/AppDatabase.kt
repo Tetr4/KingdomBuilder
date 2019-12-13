@@ -7,9 +7,6 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import de.klimek.kingdombuilder.model.Stats
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
@@ -27,7 +24,7 @@ abstract class AppDatabase : RoomDatabase() {
         )
             .addCallback(object : Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
-                    GlobalScope.launch(Dispatchers.IO) { initialize() }
+                    initialize()
                 }
             })
             .addMigrations(MIGRATION_1_2)
