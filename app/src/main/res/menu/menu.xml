@@ -6,4 +6,12 @@
         android:icon="@drawable/ic_delete"
         android:title="Delete"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_backup"
+        android:title="Backup"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_restore"
+        android:title="Restore"
+        app:showAsAction="never" />
 </menu>
