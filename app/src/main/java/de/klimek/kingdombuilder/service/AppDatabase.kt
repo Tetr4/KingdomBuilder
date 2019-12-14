@@ -2,6 +2,7 @@ package de.klimek.kingdombuilder.service
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.database.Cursor
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -37,10 +38,12 @@ abstract class AppDatabase : RoomDatabase() {
     fun invalidate() {
         // TODO This is kinda hacky and won't apply migrations.
         // We should close and reopen the somehow database, e.g. with the openHelper.
-        val tablesCursor = query("SELECT name FROM sqlite_master WHERE type = 'table'", null)
-        val tablesNames = generateSequence { if (tablesCursor.moveToNext()) tablesCursor else null }
+        val tablesNames = query("SELECT name FROM sqlite_master WHERE type = 'table'", null)
+            .asSequence()
             .map { it.getString(0) }
             .toList()
         invalidationTracker.notifyObserversByTableNames(*tablesNames.toTypedArray())
     }
 }
+
+private fun Cursor.asSequence() = generateSequence { if (moveToNext()) this else null }
