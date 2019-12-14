@@ -25,6 +25,11 @@ class StatsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onPause() {
+        super.onPause()
+        vm.save()
+    }
+
     companion object {
         private const val ARG_MONTH = "ARG_MONTH"
         fun newInstance(month: Int) = StatsFragment().apply {

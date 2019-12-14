@@ -6,8 +6,8 @@ import de.klimek.kingdombuilder.model.Stats
 import de.klimek.kingdombuilder.service.StatsDao
 import de.klimek.kingdombuilder.util.combineWith
 import de.klimek.kingdombuilder.util.distinct
+import de.klimek.kingdombuilder.util.map
 import de.klimek.kingdombuilder.util.mutableLiveDataOf
-import de.klimek.kingdombuilder.util.observeOnce
 import kotlinx.coroutines.launch
 
 class StatsViewModel(
@@ -15,9 +15,12 @@ class StatsViewModel(
     private val statsDao: StatsDao
 ) : ViewModel() {
 
-    val stats = statsDao.getByMonth(month)
+    val stats = statsDao.getByMonth(month).map {
+        it?.let { loadData(it) }
+        it
+    }
     val editable =
-        stats.combineWith(statsDao.getLast()) { current, last -> current.month == last.month }
+        stats.combineWith(statsDao.getLast()) { current, last -> current?.month == last.month }
             .distinct()
 
     val economy = mutableLiveDataOf("")
@@ -28,13 +31,6 @@ class StatsViewModel(
     val treasury = mutableLiveDataOf("")
     val size = mutableLiveDataOf("")
     val income = mutableLiveDataOf("")
-
-    init {
-        stats.observeOnce {
-            loadData(it)
-            enableAutoSave()
-        }
-    }
 
     private fun loadData(stats: Stats) {
         stats.let {
@@ -49,15 +45,7 @@ class StatsViewModel(
         }
     }
 
-    private fun enableAutoSave() {
-        val fields = setOf(economy, loyalty, stability, unrest, consumption, treasury, size, income)
-        fields
-            .map { it.distinct() }
-            .forEach { it.observeForever { save() } }
-    }
-
-
-    private fun save() = viewModelScope.launch {
+    fun save() = viewModelScope.launch {
         val stats = Stats(
             month = month,
             economy = economy.value?.toIntOrNull() ?: 0,

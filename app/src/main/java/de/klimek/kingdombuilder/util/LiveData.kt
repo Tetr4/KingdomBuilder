@@ -34,15 +34,6 @@ fun <A, B, R> LiveData<A>.combineWith(other: LiveData<B>, combine: (A, B) -> R) 
 fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T) -> Unit) =
     observe(owner, Observer(observer))
 
-fun <T> LiveData<T>.observeOnce(observer: (T) -> Unit) {
-    observeForever(object : Observer<T> {
-        override fun onChanged(t: T) {
-            observer(t)
-            removeObserver(this)
-        }
-    })
-}
-
 class SingleLiveEvent<T> : MutableLiveData<T?>() {
     private val pending: AtomicBoolean = AtomicBoolean(false)
 

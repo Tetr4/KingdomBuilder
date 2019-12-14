@@ -10,7 +10,7 @@ interface StatsDao {
     fun getAll(): LiveData<List<Stats>>
 
     @Query("SELECT * FROM Stats WHERE month=:month")
-    fun getByMonth(month: Int): LiveData<Stats>
+    fun getByMonth(month: Int): LiveData<Stats?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(stats: Stats)
