@@ -23,7 +23,7 @@ private val module = module {
     viewModel { MainViewModel(get(), get()) }
     single { AppDatabase.create(get()) { initializeDatabase(get()) } }
     single { get<AppDatabase>().statsDao() }
-    single { FileStorage() }
+    single { FileStorage(get(), get()) }
 }
 
 

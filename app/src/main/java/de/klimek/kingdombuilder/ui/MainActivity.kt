@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -46,18 +48,22 @@ class MainActivity : AppCompatActivity() {
         vm.isFirstSelected.observe(this) { invalidateOptionsMenu() }
         vm.selectedStatsIndex.observe(this) { hideKeyboard() }
         vm.statsSize.observe(this) { goToEndOfList() }
+        vm.message.observe(this) { it?.let { showMessage(it) } }
     }
 
     private fun goToEndOfList() {
         vm.selectedStatsIndex.value = vm.stats.value?.lastIndex
     }
 
+    private fun showMessage(@StringRes message: Int) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        if (vm.isLastSelected.value == true && vm.isFirstSelected.value == false) {
-            menuInflater.inflate(R.menu.menu, menu)
-            return true
-        }
-        return false
+        menuInflater.inflate(R.menu.menu, menu)
+        val deleteItem = menu.findItem(R.id.action_delete)
+        deleteItem.isVisible = vm.isLastSelected.value == true && vm.isFirstSelected.value == false
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -78,11 +84,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showCreateBackupFilePicker() {
-        val fileName = "kingdom-stats-${Date().toDateFormat()}.db"
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "application/x-sqlite3"
-        intent.putExtra(Intent.EXTRA_TITLE, fileName)
+        intent.putExtra(Intent.EXTRA_TITLE, "kingdom-stats-${Date().toDateFormat()}.db")
         startActivityForResult(intent, CODE_CREATE_BACKUP)
     }
 

@@ -1,16 +1,17 @@
 package de.klimek.kingdombuilder.ui
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.klimek.kingdombuilder.R
 import de.klimek.kingdombuilder.model.Stats
 import de.klimek.kingdombuilder.service.FileStorage
 import de.klimek.kingdombuilder.service.StatsDao
-import de.klimek.kingdombuilder.util.combineWith
-import de.klimek.kingdombuilder.util.distinct
-import de.klimek.kingdombuilder.util.map
-import de.klimek.kingdombuilder.util.mutableLiveDataOf
+import de.klimek.kingdombuilder.util.*
 import kotlinx.coroutines.launch
+
+private val TAG = MainViewModel::class.java.simpleName
 
 class MainViewModel(
     private val statsDao: StatsDao,
@@ -26,6 +27,7 @@ class MainViewModel(
     val isFirstSelected = selectedStatsIndex
         .map { it == 0 }
         .distinct()
+    val message = SingleLiveEvent<Int?>()
 
     fun newMonth() = viewModelScope.launch {
         val last = stats.value?.lastOrNull()
@@ -38,11 +40,23 @@ class MainViewModel(
         last?.let { statsDao.delete(it) }
     }
 
-    fun createBackup(uri: Uri) {
-        // TODO
+    fun createBackup(uri: Uri) = viewModelScope.launch {
+        try {
+            storage.exportDatabase(uri)
+            message.value = R.string.backup_success
+        } catch (e: Exception) {
+            Log.e(TAG, "Could not create backup", e)
+            message.value = R.string.backup_error
+        }
     }
 
-    fun restoreBackup(uri: Uri) {
-        // TODO
+    fun restoreBackup(uri: Uri) = viewModelScope.launch {
+        try {
+            storage.restoreDatabase(uri)
+            message.value = R.string.restore_success
+        } catch (e: Exception) {
+            Log.e(TAG, "Could not restore backup", e)
+            message.value = R.string.restore_error
+        }
     }
 }

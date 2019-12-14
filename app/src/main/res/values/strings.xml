@@ -10,4 +10,8 @@
     <string name="income">Income</string>
     <string name="month">Month %d</string>
     <string name="discard">Discard item?</string>
+    <string name="backup_error">Could not create backup</string>
+    <string name="backup_success">Backup created</string>
+    <string name="restore_error">Could not restore backup</string>
+    <string name="restore_success">Backup restored</string>
 </resources>
