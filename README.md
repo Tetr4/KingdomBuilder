@@ -11,5 +11,5 @@ Used libraries:
 - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/3826929/54244526-60b79680-452d-11e9-9c4b-d00b5c3b8f1c.png" title="Screenshot" height="350" />
+<img src="https://user-images.githubusercontent.com/3826929/70852725-25276f80-1ea5-11ea-9777-75264cc019ba.png" title="Screenshot" height="350" />
 </p>
